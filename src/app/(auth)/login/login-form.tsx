@@ -18,7 +18,7 @@ import { login } from '@/actions/login';
 import { useState, useTransition } from 'react';
 import { Icons } from '@/components/icons';
 import { signIn } from 'next-auth/react';
-import { DEFAULT_LOGIN_REDIRECT } from '@/route';
+import { DEFAULT_LOGIN_REDIRECT } from '@/routes';
 
 export function LoginForm() {
   const [isPending, startTransition] = useTransition();

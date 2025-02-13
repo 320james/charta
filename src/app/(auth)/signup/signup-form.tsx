@@ -26,7 +26,7 @@ import FormError from '@/components/form-error';
 import FormSuccess from '@/components/form-success';
 import { Icons } from '@/components/icons';
 import { signIn } from 'next-auth/react';
-import { DEFAULT_LOGIN_REDIRECT } from '@/route';
+import { DEFAULT_LOGIN_REDIRECT } from '@/routes';
 
 export function SignUpForm() {
   const [isPending, startTransition] = useTransition();

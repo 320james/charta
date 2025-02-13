@@ -11,8 +11,8 @@ export default function SignUpPage() {
       <div className="absolute inset-0 h-full w-full bg-black opacity-50 z-0"></div>
       <div className="relative z-10 flex w-full max-w-sm flex-col gap-6">
         <a href="#" className="flex items-center gap-2 self-center font-medium">
-          <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
-            <Webhook className="size-4" />
+          <div className="flex h-6 w-6 items-center justify-center rounded-md">
+            <Webhook className="size-6" />
           </div>
           Charta
         </a>

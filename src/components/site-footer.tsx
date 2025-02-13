@@ -13,9 +13,9 @@ export function SiteFooter() {
               rel="noreferrer"
               className="font-medium underline underline-offset-4"
             >
-              shadcn
+              James Kim
             </a>
-            . The source code is available on{' '}
+            {/* . The source code is available on{' '}
             <a
               href={siteConfig.links.github}
               target="_blank"
@@ -24,7 +24,7 @@ export function SiteFooter() {
             >
               GitHub
             </a>
-            .
+            . */}
           </div>
         </div>
       </div>

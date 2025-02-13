@@ -5,7 +5,8 @@ import { usePathname } from 'next/navigation';
 
 import { siteConfig } from '@/config/site';
 import { cn } from '@/lib/utils';
-import { Icons } from '@/components/icons';
+
+import { Webhook } from 'lucide-react';
 
 export function MainNav() {
   const pathname = usePathname();
@@ -13,7 +14,7 @@ export function MainNav() {
   return (
     <div className="mr-4 hidden md:flex">
       <Link href="/" className="mr-4 flex items-center gap-2 lg:mr-6">
-        <Icons.logo className="h-6 w-6" />
+        <Webhook className="size-6" />
         <span className="hidden font-bold lg:inline-block">
           {siteConfig.name}
         </span>

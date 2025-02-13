@@ -1,5 +1,6 @@
 import { Webhook } from 'lucide-react';
 import { LoginForm } from './login-form';
+
 import Image from 'next/image';
 export default function LoginPage() {
   return (
@@ -7,8 +8,8 @@ export default function LoginPage() {
       <div className="flex flex-col gap-4 p-6 md:p-10">
         <div className="flex justify-center gap-2 md:justify-start">
           <a href="#" className="flex items-center gap-2 font-medium">
-            <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary text-primary-foreground">
-              <Webhook className="size-4" />
+            <div className="flex h-6 w-6 items-center justify-center rounded-md ">
+              <Webhook className="size-6" />
             </div>
             Charta
           </a>
@@ -21,7 +22,7 @@ export default function LoginPage() {
       </div>
       <div className="relative hidden bg-muted lg:block">
         <Image
-          src="/giratina.jpg"
+          src="/background.jpg"
           alt="Image"
           width={3000}
           height={4500}
