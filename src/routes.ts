@@ -3,14 +3,20 @@
  * These routes do not require authentication.
  * @type {string[]}
  */
-export const publicRoutes: string[] = ['/'];
+export const publicRoutes: string[] = ['/', '/new-verification'];
 
 /**
  * An array of routes that are used for authentication
  * These routes will redirect logged in users to the default redirect path.
  * @type {string[]}
  */
-export const authRoutes: string[] = ['/login', '/signup', 'error'];
+export const authRoutes: string[] = [
+  '/login',
+  '/signup',
+  '/error',
+  '/reset',
+  '/new-password',
+];
 
 /**
  * The prefix for API authentication routes.

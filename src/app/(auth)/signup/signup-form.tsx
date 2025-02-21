@@ -164,9 +164,9 @@ export function SignUpForm() {
                   <FormSuccess message={success} />
 
                   <Button type="submit" className="w-full" disabled={isPending}>
-                    {isPending ?? (
+                    {isPending ? (
                       <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-                    )}
+                    ) : null}
                     Sign Up
                   </Button>
                 </form>

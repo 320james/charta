@@ -7,86 +7,62 @@ import { siteConfig } from '@/config/site';
 import { cn } from '@/lib/utils';
 
 import { Webhook } from 'lucide-react';
+import LogoutButton from './logout-button';
+import UserButton from './user-button';
+import { useCurrentUser } from '@/hooks/use-current-user';
+import { Button } from './ui/button';
 
 export function MainNav() {
   const pathname = usePathname();
+  const user = useCurrentUser();
 
   return (
-    <div className="mr-4 hidden md:flex">
-      <Link href="/" className="mr-4 flex items-center gap-2 lg:mr-6">
-        <Webhook className="size-6" />
-        <span className="hidden font-bold lg:inline-block">
-          {siteConfig.name}
-        </span>
-      </Link>
-      <nav className="flex items-center gap-4 text-sm xl:gap-6">
-        <Link
-          href="/docs"
-          className={cn(
-            'transition-colors hover:text-foreground/80',
-            pathname === '/docs' ? 'text-foreground' : 'text-foreground/80'
-          )}
-        >
-          Docs
+    <>
+      <div className="mr-4 hidden md:flex">
+        <Link href="/" className="mr-4 flex items-center gap-2 lg:mr-6">
+          <Webhook className="size-6" />
+          <span className="hidden font-bold lg:inline-block">
+            {siteConfig.name}
+          </span>
         </Link>
-        <Link
-          href="/docs/components"
-          className={cn(
-            'transition-colors hover:text-foreground/80',
-            pathname?.startsWith('/docs/components') &&
-              !pathname?.startsWith('/docs/component/chart')
-              ? 'text-foreground'
-              : 'text-foreground/80'
-          )}
-        >
-          Components
-        </Link>
-        <Link
-          href="/blocks"
-          className={cn(
-            'transition-colors hover:text-foreground/80',
-            pathname?.startsWith('/blocks')
-              ? 'text-foreground'
-              : 'text-foreground/80'
-          )}
-        >
-          Blocks
-        </Link>
-        <Link
-          href="/charts"
-          className={cn(
-            'transition-colors hover:text-foreground/80',
-            pathname?.startsWith('/docs/component/chart') ||
-              pathname?.startsWith('/charts')
-              ? 'text-foreground'
-              : 'text-foreground/80'
-          )}
-        >
-          Charts
-        </Link>
-        <Link
-          href="/themes"
-          className={cn(
-            'transition-colors hover:text-foreground/80',
-            pathname?.startsWith('/themes')
-              ? 'text-foreground'
-              : 'text-foreground/80'
-          )}
-        >
-          Themes
-        </Link>
-        <Link
-          href="/colors"
-          className={cn(
-            'transition-colors hover:text-foreground/80',
-            pathname?.startsWith('/colors')
-              ? 'text-foreground'
-              : 'text-foreground/80'
-          )}
-        >
-          Colors
-        </Link>
-      </nav>
-    </div>
+        <nav className="flex items-center gap-4 text-sm xl:gap-6">
+          <Link
+            href="/settings"
+            className={cn(
+              'transition-colors hover:text-foreground/80',
+              pathname === '/settings'
+                ? 'text-foreground'
+                : 'text-foreground/80'
+            )}
+          >
+            Settings
+          </Link>
+
+          <Link
+            href="/admin"
+            className={cn(
+              'transition-colors hover:text-foreground/80',
+              pathname?.startsWith('/colors')
+                ? 'text-foreground'
+                : 'text-foreground/80'
+            )}
+          >
+            Admin Dashboard
+          </Link>
+        </nav>
+      </div>
+      <div className="flex flex-1 items-center justify-between gap-2 md:justify-end">
+        <div className="flex items-center gap-5">
+          {user ? (
+            <>
+              <LogoutButton>
+                <Button>Log Out</Button>
+              </LogoutButton>
+              <UserButton />
+            </>
+          ) : null}
+        </div>
+      </div>
+    </>
   );
 }

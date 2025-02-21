@@ -19,17 +19,32 @@ import { useState, useTransition } from 'react';
 import { Icons } from '@/components/icons';
 import { signIn } from 'next-auth/react';
 import { DEFAULT_LOGIN_REDIRECT } from '@/routes';
+import { useSearchParams } from 'next/navigation';
+
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSeparator,
+  InputOTPSlot,
+} from '@/components/ui/input-otp';
 
 export function LoginForm() {
+  const searchParams = useSearchParams();
+  const urlError =
+    searchParams.get('error') === 'OAuthAccountNotLinked'
+      ? 'Email already in use with a different provider.'
+      : '';
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>('');
   const [success, setSuccess] = useState<string | undefined>('');
+  const [showTwoFactor, setShowTwoFactor] = useState(false);
 
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
       email: '',
       password: '',
+      code: '',
     },
   });
 
@@ -38,10 +53,25 @@ export function LoginForm() {
     setSuccess('');
 
     startTransition(() => {
-      login(values).then((data) => {
-        setError(data.error);
-        setSuccess(data.success);
-      });
+      login(values)
+        .then((data) => {
+          if (data.error) {
+            form.reset();
+            setError(data.error);
+            setShowTwoFactor(false);
+          }
+          if (data.success) {
+            form.reset();
+            setSuccess(data.success);
+          }
+          if (data.twoFactor) {
+            setShowTwoFactor(true);
+          }
+        })
+        .catch(() => {
+          setError('Something went wrong');
+          setShowTwoFactor(false);
+        });
     });
   };
 
@@ -62,66 +92,97 @@ export function LoginForm() {
         <div className="flex flex-col items-center gap-2 text-center">
           <h1 className="text-2xl font-bold">Login to your account</h1>
           <p className="text-balance text-sm text-muted-foreground">
-            Enter your email below to login to your account
+            Welcome back.
           </p>
         </div>
         <div className="grid gap-6">
           <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-6">
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      disabled={isPending}
-                      type="email"
-                      placeholder="m@example.com"
-                      required
-                    />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
+            {!showTwoFactor ? (
+              <>
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Email</FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          disabled={isPending}
+                          type="email"
+                          placeholder="m@example.com"
+                          required
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
 
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <div className="flex items-center">
-                    <FormLabel>Password</FormLabel>
-                    <a
-                      href="#"
-                      className="ml-auto text-sm underline-offset-4 hover:underline"
-                    >
-                      Forgot your password?
-                    </a>
-                  </div>
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <div className="flex items-center">
+                        <FormLabel>Password</FormLabel>
+                        <a
+                          href="/reset"
+                          className="ml-auto text-sm underline-offset-4 hover:underline"
+                        >
+                          Forgot your password?
+                        </a>
+                      </div>
 
-                  <FormControl>
-                    <Input
-                      {...field}
-                      disabled={isPending}
-                      type="password"
-                      placeholder="*********"
-                      required
-                    />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
+                      <FormControl>
+                        <Input
+                          {...field}
+                          disabled={isPending}
+                          type="password"
+                          placeholder="*********"
+                          required
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+              </>
+            ) : (
+              <FormField
+                control={form.control}
+                name="code"
+                render={({ field }) => (
+                  <FormItem className={showTwoFactor ? 'text-center' : ''}>
+                    <FormLabel>Two Factor Authentication Code</FormLabel>
+                    <FormControl>
+                      <div className="flex items-center justify-center py-2">
+                        <InputOTP maxLength={6} {...field}>
+                          <InputOTPGroup>
+                            <InputOTPSlot index={0} />
+                            <InputOTPSlot index={1} />
+                            <InputOTPSlot index={2} />
+                          </InputOTPGroup>
+                          <InputOTPSeparator />
+                          <InputOTPGroup>
+                            <InputOTPSlot index={3} />
+                            <InputOTPSlot index={4} />
+                            <InputOTPSlot index={5} />
+                          </InputOTPGroup>
+                        </InputOTP>
+                      </div>
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            )}
 
-            <FormError message={error} />
+            <FormError message={error || urlError} />
             <FormSuccess message={success} />
 
             <Button type="submit" className="w-full" disabled={isPending}>
-              {isPending ?? (
-                <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-              )}
-              Login
+              {isPending ? (
+                <Icons.spinner className="mr-2 h-4 w-4 animate-spin " />
+              ) : null}
+              {!showTwoFactor ? 'Login' : 'Confirm'}
             </Button>
           </form>
 
