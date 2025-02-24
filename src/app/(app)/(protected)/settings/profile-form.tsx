@@ -26,6 +26,8 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
+import { useTransition } from 'react';
+import { settings } from '@/actions/settings';
 
 const profileFormSchema = z.object({
   username: z
@@ -69,12 +71,20 @@ export function ProfileForm() {
     mode: 'onChange',
   });
 
+  const [isPending, startTransition] = useTransition();
+
   const { fields, append } = useFieldArray({
     name: 'urls',
     control: form.control,
   });
 
   function onSubmit(data: ProfileFormValues) {
+    startTransition(() => {
+      // Call your API here.
+      // settings({
+      //   name: "new name",
+      // })
+    });
     toast({
       title: 'You submitted the following values:',
       description: (

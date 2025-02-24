@@ -58,3 +58,7 @@ export const NewPasswordSchema = z
     message: 'Passwords do not match',
     path: ['confirmPassword'],
   });
+
+export const SettingsSchema = z.object({
+  name: z.optional(z.string()),
+});
