@@ -1,4 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+### This is a [Next.js](https://nextjs.org) project built to provide a sleek, and modern template to create a web application that adds advanced authentication - along with admin / user dashboard and settings.
+
+
+
+## **Tech/Libs:**
+Next.js
+
+PostgreSQL + PrismaORM + NeonDB
+
+Auth.js
+
+Resend
+
+Node.js
+
+ShadcnUI
+
+Clerk
+
+
+
+
+
+## **Features:**
+Next-auth v5 (Auth.js)
+
+Next.js 15 + Server Actions 
+
+Credentials Provider
+
+OAuth Provider - Social login with Google % GitHub
+
+Email/Password Signup - Forgot password, email verification, Two-Factor authentication
+
+User roles (Admin + User)
+
+Login + SignUp + Settings
+
+And... fully responsive!
+
+
+
 
 ## Getting Started
 
@@ -6,31 +47,11 @@ First, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+![Screenshot 2025-03-10 at 1 27 31 PM](https://github.com/user-attachments/assets/4c5b9de3-c078-4d08-8e5b-f8be506254ef)
+![Screenshot 2025-03-10 at 1 27 51 PM](https://github.com/user-attachments/assets/a378ad43-9d36-4613-bd3b-9212d24d56a0)
+![Screenshot 2025-03-10 at 1 29 15 PM](https://github.com/user-attachments/assets/3c167fd8-b0a8-46b8-bd0e-d6772fd45e08)
