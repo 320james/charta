@@ -1,4 +1,4 @@
-### This is a [Next.js](https://nextjs.org) project built to provide a sleek, and modern template to create a web application that adds advanced authentication - along with admin / user dashboard and settings.
+This is a [Next.js](https://nextjs.org) project built to provide a sleek, and modern template to create a web application that adds advanced authentication - along with admin / user dashboard and settings.
 
 
 
